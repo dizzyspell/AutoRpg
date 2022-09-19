@@ -17,7 +17,7 @@ namespace ConsoleApp1.Actions.Attack
 
         public ActionContext Execute(IContext aContext)
         {
-            ICharacter fTarget = aContext.Enemies.Where(a => a.IsAlive).First();
+            ICharacter fTarget = aContext.Enemies.Where(a => a.IsAlive).OrderByDescending(a => a.DefensePoints).First();
             int fAdjustedValue = -fTarget.ApplyDefense(-2);
             fTarget.ApplyDamage(fAdjustedValue);
 
