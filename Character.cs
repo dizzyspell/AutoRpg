@@ -79,7 +79,7 @@ namespace ConsoleApp1
 
         public int ApplyDefense(int aBaseDefense)
         {
-            int fAdjustedValue = Math.Max(aBaseDefense, -mrDefensePoints);
+            int fAdjustedValue = Math.Clamp(aBaseDefense, -mrDefensePoints, mrCurrentHealthPoints-mrDefensePoints);
             mrDefensePoints += fAdjustedValue;
             return fAdjustedValue;
         }
