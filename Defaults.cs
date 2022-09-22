@@ -28,10 +28,10 @@ namespace ConsoleApp1
         {
             "T. Testerson",
             "Jimmy Test",
-            "Kianna 'Big Mood' Johnson",
+            "Kianna",
             "THE Goober",
             "Frank Sinatra",
-            "Jurgen Windcaller",
+            "JoJo",
             "Cicero",
             "Juicifer",
             "Mochi",
