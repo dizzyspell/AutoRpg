@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.NetworkInformation;
-using System.Text;
-using System.Threading.Tasks;
-using ConsoleApp1.Actions;
+﻿using ConsoleApp1.Actions;
 using ConsoleApp1.Classes;
 using ConsoleApp1.Contexts;
 using ConsoleApp1.Personalities;

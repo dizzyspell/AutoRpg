@@ -2,12 +2,6 @@
 using ConsoleApp1.Classes;
 using ConsoleApp1.Contexts;
 using ConsoleApp1.Personalities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {

@@ -1,13 +1,5 @@
-﻿using ConsoleApp1.Actions;
-using ConsoleApp1.Classes;
+﻿using ConsoleApp1.Classes;
 using ConsoleApp1.Personalities;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
