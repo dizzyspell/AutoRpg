@@ -48,14 +48,13 @@ namespace ConsoleApp1.Contexts
 
             foreach (ICharacter fActiveCharacter in msrInitiativeOrder)
             {
+                if (!fActiveCharacter.Context.Enemies.StillKickin) break;
                 if (!fActiveCharacter.IsAlive) continue;
 
                 IAction fChosenAction = fActiveCharacter.ChooseAction();
                 ActionContext fResult = fActiveCharacter.Execute(fChosenAction);
 
                 func(fResult);
-
-                if (!fActiveCharacter.Context.Enemies.StillKickin) break;
             }
         }
 
