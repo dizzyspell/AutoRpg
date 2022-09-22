@@ -21,6 +21,7 @@ namespace ConsoleApp1.Contexts
 
         public static void SetUpForBattle(Party aPartyA, Party aPartyB)
         {
+            msrInitiativeOrder.Clear();
             foreach (ICharacter aCharacter in aPartyA)
             {
                 aCharacter.Context = new BattleContext(aCharacter, aPartyA, aPartyB);
