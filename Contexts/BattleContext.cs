@@ -31,10 +31,10 @@ namespace ConsoleApp1.Contexts
                 aCharacter.Context = new BattleContext(aCharacter, aPartyB, aPartyA);
             }
 
-            for (int i = 0; i < Math.Max(aPartyA.Count, aPartyB.Count); i++)
+            for (int i = 0; i < 4; i++)
             {
-                if (i < aPartyA.Count) msrInitiativeOrder.Add(aPartyA.ElementAt(i));
-                if (i < aPartyB.Count) msrInitiativeOrder.Add(aPartyB.ElementAt(i));
+                msrInitiativeOrder.Add(aPartyA.ElementAt(i));
+                msrInitiativeOrder.Add(aPartyB.ElementAt(i));
             }
         }
 

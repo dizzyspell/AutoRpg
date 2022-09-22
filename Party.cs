@@ -9,27 +9,57 @@ namespace ConsoleApp1
 {
     internal class Party : IEnumerable<ICharacter>, ITargetable
     {
-        private readonly List<ICharacter> mrCharacters;
+        private readonly ICharacter[] mrCharacters = new ICharacter[4];
 
         public Party()
         {
-            mrCharacters = new List<ICharacter>();
         }
 
         public Party(List<ICharacter> aCharacters)
         {
-            mrCharacters = aCharacters;
+            for (int i = 0; i < 4; i++)
+            {
+                mrCharacters[i] = aCharacters.ElementAt(i);
+            }
         }
 
-        public int Count => mrCharacters.Count;
+        public static Party GenerateNew()
+        {
+            return new Party(
+                new List<ICharacter> {
+                    Character.GenerateNew(),
+                    Character.GenerateNew(),
+                    Character.GenerateNew(),
+                    Character.GenerateNew(),
+                }
+            );
+        }
 
         public bool StillKickin => mrCharacters.Any(a => a.IsAlive);
 
-        public string Name => throw new NotImplementedException();
+        public int Count => mrCharacters.Where(a => a != null).Count();
 
-        public void Add(ICharacter aToAdd)
+        public string Summary
         {
-            mrCharacters.Add(aToAdd);
+            get 
+            {
+                string fToReturn = "";
+
+                for (int i = 0; i<4; i++)
+                {
+                    ICharacter fMember = mrCharacters[i];
+                    fToReturn += fMember == null ?
+                        $"({i}) < EMPTY > \n" :
+                        $"({i}) {fMember.Summary} \n";
+                }
+
+                return fToReturn;
+            }
+        }
+
+        public void SetPosition(int aPos, ICharacter aCharacter)
+        {
+            if (aPos < 4) mrCharacters[aPos] = aCharacter;
         }
 
         public override string ToString()
@@ -38,7 +68,9 @@ namespace ConsoleApp1
 
             foreach (var fMember in mrCharacters)
             {
-                fToReturn += $"{fMember.Name}: {fMember.HealthPoints} | {fMember.DefensePoints}\n";
+                fToReturn += fMember == null ?
+                    "\t< EMPTY >\n" :
+                    $"\t{fMember.Name}:{(fMember.Name.Length >= 8 ? "\t" : "\t\t")}{fMember.HealthPoints} \t{fMember.DefensePoints}\n";
             }
 
             return fToReturn;
@@ -46,7 +78,7 @@ namespace ConsoleApp1
 
         public IEnumerator<ICharacter> GetEnumerator()
         {
-            return mrCharacters.GetEnumerator();
+            return mrCharacters.ToList().GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -56,19 +88,17 @@ namespace ConsoleApp1
 
         public int ApplyDamage(int aBaseDamage)
         {
-            return ((TargetGroup) mrCharacters).ApplyDamage(aBaseDamage);
+            return ((TargetGroup)this).ApplyDamage(aBaseDamage);
         }
 
         public int ApplyDefense(int aBaseDefense)
         {
-            return ((TargetGroup) mrCharacters).ApplyDefense(aBaseDefense);
+            return ((TargetGroup)this).ApplyDefense(aBaseDefense);
         }
 
         public int ApplyHeal(int aBaseHeal)
         {
-            return ((TargetGroup) mrCharacters).ApplyHeal(aBaseHeal);
+            return ((TargetGroup)this).ApplyHeal(aBaseHeal);
         }
-
-        public static implicit operator List<ICharacter>(Party p) => p.mrCharacters;
     }
 }

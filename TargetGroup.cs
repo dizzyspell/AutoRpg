@@ -72,7 +72,12 @@ namespace ConsoleApp1
 
         public static explicit operator TargetGroup(List<ICharacter> a)
         {
-            return new TargetGroup(a.Cast<ITargetable>().ToList());
+            return new TargetGroup(a.Where(a => a != null).Cast<ITargetable>().ToList());
+        }
+
+        public static explicit operator TargetGroup(Party p)
+        {
+            return (TargetGroup)p;
         }
     }
 }
