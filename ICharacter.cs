@@ -20,6 +20,7 @@ namespace ConsoleApp1
         public int HealthPoints { get; }
         public int DefensePoints { get; }
         public bool IsAlive { get; }
+        public string Summary { get; }
         public IContext Context { get; set; }
 
         public IAction ChooseAction();

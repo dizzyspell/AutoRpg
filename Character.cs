@@ -61,6 +61,8 @@ namespace ConsoleApp1
 
         public IContext Context { get => mrContext; set => mrContext = value; }
 
+        public string Summary => $"{Name}, the {Personality} {Class}";
+
         public int ApplyDamage(int aBaseDamage)
         {
             int fAdjustedDamage = Math.Clamp(aBaseDamage - mrDefensePoints, 0, mrCurrentHealthPoints);
