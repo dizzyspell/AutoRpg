@@ -1,11 +1,10 @@
-﻿namespace ConsoleApp1.Contexts
+﻿namespace ConsoleApp1.Contexts;
+
+internal interface IContext
 {
-    internal interface IContext
-    {
-        public ICharacter Self { get; set; }
+    public ICharacter Self { get; set; }
 
-        public Party Allies { get; set; }
+    public Party Allies { get; set; }
 
-        public Party Enemies { get; set; }
-    }
+    public Party Enemies { get; set; }
 }

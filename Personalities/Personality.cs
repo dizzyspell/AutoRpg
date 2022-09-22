@@ -1,59 +1,58 @@
 ﻿using ConsoleApp1.Actions;
 
-namespace ConsoleApp1.Personalities
+namespace ConsoleApp1.Personalities;
+
+internal abstract class Personality : IPersonality
 {
-    internal abstract class Personality : IPersonality
+    private readonly string mrName;
+    private readonly int mrBasicChance;
+    private readonly int mrSupportChance;
+    private readonly int mrDefendChance;
+    private readonly int mrAttackChance;
+    private readonly int mrTotalChance;
+
+    protected Personality(string aName, int aBasicChance, int aSupportChance, int aDefendChance, int aAttackChance)
     {
-        private readonly string mrName;
-        private readonly int mrBasicChance;
-        private readonly int mrSupportChance;
-        private readonly int mrDefendChance;
-        private readonly int mrAttackChance;
-        private readonly int mrTotalChance;
+        mrName = aName;
+        mrBasicChance = aBasicChance;
+        mrSupportChance = aSupportChance;
+        mrDefendChance = aDefendChance;
+        mrAttackChance = aAttackChance;
+        mrTotalChance = aBasicChance + aSupportChance + aDefendChance + aAttackChance;
+    }
 
-        protected Personality(string aName, int aBasicChance, int aSupportChance, int aDefendChance, int aAttackChance)
+    public string Name => mrName;
+
+    public IAction ChooseAction(ActionSet aActionSet)
+    {
+        List<Tuple<IAction, int>> fChanceSet = new List<Tuple<IAction, int>>
         {
-            mrName = aName;
-            mrBasicChance = aBasicChance;
-            mrSupportChance = aSupportChance;
-            mrDefendChance = aDefendChance;
-            mrAttackChance = aAttackChance;
-            mrTotalChance = aBasicChance + aSupportChance + aDefendChance + aAttackChance;
-        }
+            new(aActionSet.Basic, mrBasicChance),
+            new(aActionSet.Support, mrSupportChance),
+            new(aActionSet.Defend, mrDefendChance),
+            new(aActionSet.Attack, mrAttackChance)
+        };
 
-        public string Name => mrName;
+        int fRandInt = RandomNumberGod.ChooseInt(mrTotalChance);
 
-        public IAction ChooseAction(ActionSet aActionSet)
+        IAction fChosenAction = null;
+
+        foreach (Tuple<IAction, int> _action in fChanceSet)
         {
-            List<Tuple<IAction, int>> fChanceSet = new List<Tuple<IAction, int>>
+            if (fRandInt < _action.Item2)
             {
-                new(aActionSet.Basic, mrBasicChance),
-                new(aActionSet.Support, mrSupportChance),
-                new(aActionSet.Defend, mrDefendChance),
-                new(aActionSet.Attack, mrAttackChance)
-            };
-
-            int fRandInt = RandomNumberGod.ChooseInt(mrTotalChance);
-
-            IAction fChosenAction = null;
-
-            foreach (Tuple<IAction, int> _action in fChanceSet)
-            {
-                if (fRandInt < _action.Item2)
-                {
-                    fChosenAction = _action.Item1;
-                    break;
-                }
-
-                fRandInt -= _action.Item2;
+                fChosenAction = _action.Item1;
+                break;
             }
 
-            return fChosenAction;
+            fRandInt -= _action.Item2;
         }
 
-        public override string ToString()
-        {
-            return Name;
-        }
+        return fChosenAction;
+    }
+
+    public override string ToString()
+    {
+        return Name;
     }
 }

@@ -1,7 +1,6 @@
-﻿namespace ConsoleApp1.Personalities
+﻿namespace ConsoleApp1.Personalities;
+
+internal class Stoic : Personality, IPersonality
 {
-    internal class Stoic : Personality, IPersonality
-    {
-        internal Stoic() : base("Stoic", 5, 1, 3, 1) { }
-    }
+    internal Stoic() : base("Stoic", 5, 1, 3, 1) { }
 }

@@ -1,10 +1,9 @@
-﻿namespace ConsoleApp1.Actions
+﻿namespace ConsoleApp1.Actions;
+
+public enum ActionType
 {
-    public enum ActionType
-    {
-        Basic,
-        Support,
-        Defend,
-        Attack
-    }
+    Basic,
+    Support,
+    Defend,
+    Attack
 }

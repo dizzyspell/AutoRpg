@@ -1,12 +1,11 @@
-﻿namespace ConsoleApp1.Classes
-{
-    internal abstract class Class
-    {
-        public abstract string Name { get; }
+﻿namespace ConsoleApp1.Classes;
 
-        public override string ToString()
-        {
-            return Name;
-        }
+internal abstract class Class
+{
+    public abstract string Name { get; }
+
+    public override string ToString()
+    {
+        return Name;
     }
 }

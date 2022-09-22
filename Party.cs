@@ -1,101 +1,100 @@
 ﻿using System.Collections;
 
-namespace ConsoleApp1
+namespace ConsoleApp1;
+
+internal class Party : IEnumerable<ICharacter>, ITargetable
 {
-    internal class Party : IEnumerable<ICharacter>, ITargetable
+    private readonly ICharacter[] mrCharacters = new ICharacter[4];
+
+    public Party()
     {
-        private readonly ICharacter[] mrCharacters = new ICharacter[4];
+    }
 
-        public Party()
+    public Party(List<ICharacter> aCharacters)
+    {
+        for (int i = 0; i < 4; i++)
         {
+            mrCharacters[i] = aCharacters.ElementAt(i);
         }
+    }
 
-        public Party(List<ICharacter> aCharacters)
-        {
-            for (int i = 0; i < 4; i++)
-            {
-                mrCharacters[i] = aCharacters.ElementAt(i);
+    public static Party GenerateNew()
+    {
+        return new Party(
+            new List<ICharacter> {
+                Character.GenerateNew(),
+                Character.GenerateNew(),
+                Character.GenerateNew(),
+                Character.GenerateNew(),
             }
-        }
+        );
+    }
 
-        public static Party GenerateNew()
-        {
-            return new Party(
-                new List<ICharacter> {
-                    Character.GenerateNew(),
-                    Character.GenerateNew(),
-                    Character.GenerateNew(),
-                    Character.GenerateNew(),
-                }
-            );
-        }
+    public bool StillKickin => mrCharacters.Any(a => a.IsAlive);
 
-        public bool StillKickin => mrCharacters.Any(a => a.IsAlive);
+    public int Count => mrCharacters.Where(a => a != null).Count();
 
-        public int Count => mrCharacters.Where(a => a != null).Count();
-
-        public string Summary
-        {
-            get 
-            {
-                string fToReturn = "";
-
-                for (int i = 0; i<4; i++)
-                {
-                    ICharacter fMember = mrCharacters[i];
-                    fToReturn += fMember == null ?
-                        $"({i}) < EMPTY > \n" :
-                        $"({i}) {fMember.Summary} \n";
-                }
-
-                return fToReturn;
-            }
-        }
-
-        public void SetPosition(int aPos, ICharacter aCharacter)
-        {
-            if (aPos < 4) mrCharacters[aPos] = aCharacter;
-        }
-
-        public string Name => throw new NotImplementedException();
-
-        public override string ToString()
+    public string Summary
+    {
+        get 
         {
             string fToReturn = "";
 
-            foreach (var fMember in mrCharacters)
+            for (int i = 0; i<4; i++)
             {
+                ICharacter fMember = mrCharacters[i];
                 fToReturn += fMember == null ?
-                    "\t< EMPTY >\n" :
-                    $"\t{fMember.Name}:{(fMember.Name.Length >= 8 ? "\t" : "\t\t")}{fMember.HealthPoints} \t{fMember.DefensePoints}\n";
+                    $"({i}) < EMPTY > \n" :
+                    $"({i}) {fMember.Summary} \n";
             }
 
             return fToReturn;
         }
+    }
 
-        public IEnumerator<ICharacter> GetEnumerator()
+    public void SetPosition(int aPos, ICharacter aCharacter)
+    {
+        if (aPos < 4) mrCharacters[aPos] = aCharacter;
+    }
+
+    public string Name => throw new NotImplementedException();
+
+    public override string ToString()
+    {
+        string fToReturn = "";
+
+        foreach (var fMember in mrCharacters)
         {
-            return mrCharacters.ToList().GetEnumerator();
+            fToReturn += fMember == null ?
+                "\t< EMPTY >\n" :
+                $"\t{fMember.Name}:{(fMember.Name.Length >= 8 ? "\t" : "\t\t")}{fMember.HealthPoints} \t{fMember.DefensePoints}\n";
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        return fToReturn;
+    }
 
-        public int ApplyDamage(int aBaseDamage)
-        {
-            return ((TargetGroup)this).ApplyDamage(aBaseDamage);
-        }
+    public IEnumerator<ICharacter> GetEnumerator()
+    {
+        return mrCharacters.ToList().GetEnumerator();
+    }
 
-        public int ApplyDefense(int aBaseDefense)
-        {
-            return ((TargetGroup)this).ApplyDefense(aBaseDefense);
-        }
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
+    }
 
-        public int ApplyHeal(int aBaseHeal)
-        {
-            return ((TargetGroup)this).ApplyHeal(aBaseHeal);
-        }
+    public int ApplyDamage(int aBaseDamage)
+    {
+        return ((TargetGroup)this).ApplyDamage(aBaseDamage);
+    }
+
+    public int ApplyDefense(int aBaseDefense)
+    {
+        return ((TargetGroup)this).ApplyDefense(aBaseDefense);
+    }
+
+    public int ApplyHeal(int aBaseHeal)
+    {
+        return ((TargetGroup)this).ApplyHeal(aBaseHeal);
     }
 }

@@ -1,77 +1,76 @@
 ﻿using System.Collections;
 
-namespace ConsoleApp1
+namespace ConsoleApp1;
+
+internal class TargetGroup : IEnumerable<ITargetable>, ITargetable
 {
-    internal class TargetGroup : IEnumerable<ITargetable>, ITargetable
+    private readonly List<ITargetable> mrTargets;
+
+    public TargetGroup(List<ITargetable> aTargets)
     {
-        private readonly List<ITargetable> mrTargets;
+        mrTargets = aTargets;
+    }
 
-        public TargetGroup(List<ITargetable> aTargets)
+    public string Name => string.Join(", ", mrTargets.Select(a => a.Name));
+
+    public int ApplyDamage(int aBaseDamage)
+    {
+        int fTotalDamageApplied = 0;
+
+        foreach (var fTarget in mrTargets)
         {
-            mrTargets = aTargets;
+            fTotalDamageApplied += fTarget.ApplyDamage(aBaseDamage);
         }
 
-        public string Name => string.Join(", ", mrTargets.Select(a => a.Name));
+        return fTotalDamageApplied;
+    }
 
-        public int ApplyDamage(int aBaseDamage)
+    public int ApplyDefense(int aBaseDefense)
+    {
+        int fTotalDefenseApplied = 0;
+
+        foreach (var fTarget in mrTargets)
         {
-            int fTotalDamageApplied = 0;
-
-            foreach (var fTarget in mrTargets)
-            {
-                fTotalDamageApplied += fTarget.ApplyDamage(aBaseDamage);
-            }
-
-            return fTotalDamageApplied;
+            fTotalDefenseApplied += fTarget.ApplyDefense(aBaseDefense);
         }
 
-        public int ApplyDefense(int aBaseDefense)
+        return fTotalDefenseApplied;
+    }
+
+    public int ApplyHeal(int aBaseHeal)
+    {
+        int fTotalHealApplied = 0;
+
+        foreach (var fTarget in mrTargets)
         {
-            int fTotalDefenseApplied = 0;
-
-            foreach (var fTarget in mrTargets)
-            {
-                fTotalDefenseApplied += fTarget.ApplyDefense(aBaseDefense);
-            }
-
-            return fTotalDefenseApplied;
+            fTotalHealApplied += fTarget.ApplyHeal(aBaseHeal);
         }
 
-        public int ApplyHeal(int aBaseHeal)
-        {
-            int fTotalHealApplied = 0;
+        return fTotalHealApplied;
+    }
 
-            foreach (var fTarget in mrTargets)
-            {
-                fTotalHealApplied += fTarget.ApplyHeal(aBaseHeal);
-            }
+    public IEnumerator<ITargetable> GetEnumerator()
+    {
+        return mrTargets.GetEnumerator();
+    }
 
-            return fTotalHealApplied;
-        }
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
+    }
 
-        public IEnumerator<ITargetable> GetEnumerator()
-        {
-            return mrTargets.GetEnumerator();
-        }
+    public static explicit operator TargetGroup(List<ITargetable> a)
+    {
+        return new TargetGroup(a);
+    }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+    public static explicit operator TargetGroup(List<ICharacter> a)
+    {
+        return new TargetGroup(a.Where(a => a != null).Cast<ITargetable>().ToList());
+    }
 
-        public static explicit operator TargetGroup(List<ITargetable> a)
-        {
-            return new TargetGroup(a);
-        }
-
-        public static explicit operator TargetGroup(List<ICharacter> a)
-        {
-            return new TargetGroup(a.Where(a => a != null).Cast<ITargetable>().ToList());
-        }
-
-        public static explicit operator TargetGroup(Party p)
-        {
-            return (TargetGroup)p;
-        }
+    public static explicit operator TargetGroup(Party p)
+    {
+        return (TargetGroup)p;
     }
 }
