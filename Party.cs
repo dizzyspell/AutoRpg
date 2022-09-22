@@ -62,6 +62,8 @@ namespace ConsoleApp1
             if (aPos < 4) mrCharacters[aPos] = aCharacter;
         }
 
+        public string Name => throw new NotImplementedException();
+
         public override string ToString()
         {
             string fToReturn = "";
