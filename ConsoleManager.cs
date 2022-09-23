@@ -105,8 +105,8 @@ internal static class ConsoleManager
 
             // Only two possiblities here, given the above while loop
             fPredictedWinner = fInput.ToLower() == "a" ? fPartyA : fPartyB;
-            Console.WriteLine("Bet placed! -10 Money \n");
-            Player.Money -= 10;
+            Console.WriteLine("Bet placed! -20 Money \n");
+            Player.Money -= 20;
             Console.WriteLine($"New total is {Player.Money} Monies \n");
 
             fWatchTheBattle = YesNoPrompt("Would you like to watch the battle?");
@@ -115,16 +115,16 @@ internal static class ConsoleManager
 
             if (fWinningParty == fPredictedWinner)
             {
-                Console.WriteLine("You were right!! +20 Money \n");
-                Player.Money += 20;
+                Console.WriteLine("You were right!! +40 Money \n");
+                Player.Money += 40;
                 Console.WriteLine($"New total is {Player.Money} Monies");
             }
             else
             {
-                Console.WriteLine("You were wrong... oof... awkward... MASSIVE yikes... \n");
+                Console.WriteLine("You were wrong... oof... awkward... \n");
             }
 
-            fContinue = YesNoPrompt("Would you like to bet on another roud?");
+            fContinue = YesNoPrompt("Would you like to bet on another round?");
         }
     }
 
