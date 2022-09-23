@@ -57,6 +57,11 @@ internal class Character : ICharacter
 
     public string Summary => $"{Name}, the {Personality} {Class}";
 
+    public int SimulateDamage(int aBaseDamage)
+    {
+        return Math.Clamp(aBaseDamage - mrDefensePoints, 0, mrCurrentHealthPoints);
+    }
+
     public int ApplyDamage(int aBaseDamage)
     {
         int fAdjustedDamage = Math.Clamp(aBaseDamage - mrDefensePoints, 0, mrCurrentHealthPoints);
@@ -65,12 +70,22 @@ internal class Character : ICharacter
         return fAdjustedDamage;
     }
 
+    public int SimulateHeal(int aBaseHeal)
+    {
+        return Math.Min(aBaseHeal, mrMaxHealthPoints - mrCurrentHealthPoints);
+    }
+
     public int ApplyHeal(int aBaseHeal)
     {
         int fMaxHeal = mrMaxHealthPoints - mrCurrentHealthPoints;
         int fAdjustedHeal = Math.Min(aBaseHeal, fMaxHeal);
         mrCurrentHealthPoints += fAdjustedHeal;
         return fAdjustedHeal;
+    }
+
+    public int SimulateDefense(int aBaseDefense)
+    {
+        return Math.Clamp(aBaseDefense, -mrDefensePoints, mrCurrentHealthPoints - mrDefensePoints);
     }
 
     public int ApplyDefense(int aBaseDefense)

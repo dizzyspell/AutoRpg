@@ -13,6 +13,18 @@ internal class TargetGroup : IEnumerable<ITargetable>, ITargetable
 
     public string Name => string.Join(", ", mrTargets.Select(a => a.Name));
 
+    public int SimulateDamage(int aBaseDamage)
+    {
+        int fTotalDamageApplied = 0;
+
+        foreach (var fTarget in mrTargets)
+        {
+            fTotalDamageApplied += fTarget.SimulateDamage(aBaseDamage);
+        }
+
+        return fTotalDamageApplied;
+    }
+
     public int ApplyDamage(int aBaseDamage)
     {
         int fTotalDamageApplied = 0;
@@ -25,6 +37,18 @@ internal class TargetGroup : IEnumerable<ITargetable>, ITargetable
         return fTotalDamageApplied;
     }
 
+    public int SimulateDefense(int aBaseDefense)
+    {
+        int fTotalDefenseApplied = 0;
+
+        foreach (var fTarget in mrTargets)
+        {
+            fTotalDefenseApplied += fTarget.SimulateDefense(aBaseDefense);
+        }
+
+        return fTotalDefenseApplied;
+    }
+
     public int ApplyDefense(int aBaseDefense)
     {
         int fTotalDefenseApplied = 0;
@@ -35,6 +59,18 @@ internal class TargetGroup : IEnumerable<ITargetable>, ITargetable
         }
 
         return fTotalDefenseApplied;
+    }
+
+    public int SimulateHeal(int aBaseHeal)
+    {
+        int fTotalHealApplied = 0;
+
+        foreach (var fTarget in mrTargets)
+        {
+            fTotalHealApplied += fTarget.SimulateHeal(aBaseHeal);
+        }
+
+        return fTotalHealApplied;
     }
 
     public int ApplyHeal(int aBaseHeal)

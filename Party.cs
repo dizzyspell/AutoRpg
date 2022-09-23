@@ -83,18 +83,15 @@ internal class Party : IEnumerable<ICharacter>, ITargetable
         return GetEnumerator();
     }
 
-    public int ApplyDamage(int aBaseDamage)
-    {
-        return ((TargetGroup)this).ApplyDamage(aBaseDamage);
-    }
+    public int SimulateDamage(int aBaseDamage) => ((TargetGroup)this).SimulateDamage(aBaseDamage);
 
-    public int ApplyDefense(int aBaseDefense)
-    {
-        return ((TargetGroup)this).ApplyDefense(aBaseDefense);
-    }
+    public int ApplyDamage(int aBaseDamage) => ((TargetGroup)this).ApplyDamage(aBaseDamage);
 
-    public int ApplyHeal(int aBaseHeal)
-    {
-        return ((TargetGroup)this).ApplyHeal(aBaseHeal);
-    }
+    public int SimulateDefense(int aBaseDefense) => ((TargetGroup)this).SimulateDefense(aBaseDefense);
+
+    public int ApplyDefense(int aBaseDefense) => ((TargetGroup)this).ApplyDefense(aBaseDefense);
+
+    public int SimulateHeal(int aBaseHeal) => ((TargetGroup)this).SimulateHeal(aBaseHeal);
+
+    public int ApplyHeal(int aBaseHeal) => ((TargetGroup)this).ApplyHeal(aBaseHeal);
 }

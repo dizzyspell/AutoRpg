@@ -7,4 +7,7 @@ internal interface ITargetable
     public int ApplyDamage(int aBaseDamage);
     public int ApplyDefense(int aBaseDefense);
     public int ApplyHeal(int aBaseHeal);
+    public int SimulateDamage(int aBaseDamage);
+    public int SimulateDefense(int aBaseDefense);
+    public int SimulateHeal(int aBaseHeal);
 }
