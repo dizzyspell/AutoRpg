@@ -16,4 +16,6 @@ internal class RandomNumberGod
     public static IPersonality ChoosePersonality() => Defaults.Personalities.ElementAt(ChooseInt(Defaults.Personalities.Count)).Value.Invoke();
 
     public static ICharacter ChooseCharacter(IEnumerable<ICharacter> aPool) => aPool.ElementAt(ChooseInt(aPool.Count()));
+
+    public static ITargetable ChooseTarget(IEnumerable<ITargetable> aPool) => aPool.ElementAt(ChooseInt(aPool.Count()));
 }
