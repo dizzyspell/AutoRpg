@@ -10,13 +10,17 @@ internal class HuntersGift : IAction
 
     public ActionType Type => ActionType.Attack;
 
-    public ActionContext Execute(IContext aContext)
+    public ActionContext Execute(IContext aContext, ITargetable aTarget)
     {
-        ITargetable fTarget = RandomNumberGod.ChooseCharacter(aContext.Enemies.Where(a => a.IsAlive));
-        int fDamageDone = fTarget.ApplyDamage(1);
+        int fDamageDone = aTarget.ApplyDamage(1);
         ITargetable fDestination = aContext.Allies.Where(a => a.IsAlive).OrderByDescending(a => a.HealthPoints).Last();
         fDestination.ApplyHeal(fDamageDone);
 
-        return new ActionContext(aContext, this, fTarget, fDamageDone);
+        return new ActionContext(aContext, this, aTarget, fDamageDone);
+    }
+
+    public IEnumerable<ITargetable> ValidTargets(IContext aContext)
+    {
+        return aContext.Enemies.Where(a => a.IsAlive);
     }
 }

@@ -10,12 +10,16 @@ internal class HugOfDeception : IAction
 
     public ActionType Type => ActionType.Attack;
 
-    public ActionContext Execute(IContext aContext)
+    public ActionContext Execute(IContext aContext, ITargetable aTarget)
     {
-        ICharacter fTarget = aContext.Enemies.Where(a => a.IsAlive).OrderByDescending(a => a.DefensePoints).First();
-        int fAdjustedValue = -fTarget.ApplyDefense(-2);
-        fTarget.ApplyDamage(fAdjustedValue);
+        int fAdjustedValue = -aTarget.ApplyDefense(-2);
+        aTarget.ApplyDamage(fAdjustedValue);
 
-        return new ActionContext(aContext, this, fTarget, fAdjustedValue);
+        return new ActionContext(aContext, this, aTarget, fAdjustedValue);
+    }
+
+    public IEnumerable<ITargetable> ValidTargets(IContext aContext)
+    {
+        return aContext.Enemies.Where(a => a.IsAlive).OrderByDescending(a => a.DefensePoints);
     }
 }

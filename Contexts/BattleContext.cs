@@ -45,8 +45,7 @@ internal class BattleContext : IContext
             if (!fActiveCharacter.Context.Enemies.StillKickin) break;
             if (!fActiveCharacter.IsAlive) continue;
 
-            IAction fChosenAction = fActiveCharacter.ChooseAction();
-            ActionContext fResult = fActiveCharacter.Execute(fChosenAction);
+            ActionContext fResult = fActiveCharacter.DoAnyAction();
 
             func(fResult);
         }

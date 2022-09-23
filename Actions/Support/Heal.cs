@@ -10,10 +10,15 @@ internal class Heal : IAction
 
     public ActionType Type => ActionType.Support;
 
-    public ActionContext Execute(IContext aContext)
+    public ActionContext Execute(IContext aContext, ITargetable aTarget)
     {
-        int fAdjustedValue = aContext.Self.ApplyHeal(2);
+        int fAdjustedValue = aTarget.ApplyHeal(2);
 
-        return new ActionContext(aContext, this, aContext.Self, fAdjustedValue);
+        return new ActionContext(aContext, this, aTarget, fAdjustedValue);
+    }
+
+    public IEnumerable<ITargetable> ValidTargets(IContext aContext)
+    {
+        return new List<ITargetable> { aContext.Self };
     }
 }

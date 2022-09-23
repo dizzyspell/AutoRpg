@@ -10,11 +10,15 @@ internal class Purr : IAction
 
     public ActionType Type => ActionType.Support;
 
-    public ActionContext Execute(IContext aContext)
+    public ActionContext Execute(IContext aContext, ITargetable aTarget)
     {
-        ITargetable fTarget = (TargetGroup) aContext.Allies.Where(a => a.IsAlive && !a.Equals(aContext.Self)).ToList();
-        int fHealApplied = fTarget.ApplyHeal(1);
+        int fHealApplied = aTarget.ApplyHeal(1);
 
-        return new ActionContext(aContext, this, fTarget, fHealApplied);
+        return new ActionContext(aContext, this, aTarget, fHealApplied);
+    }
+
+    public IEnumerable<ITargetable> ValidTargets(IContext aContext)
+    {
+        return new List<ITargetable> { (TargetGroup)aContext.Allies.Where(a => a.IsAlive && !a.Equals(aContext.Self)).ToList() };
     }
 }

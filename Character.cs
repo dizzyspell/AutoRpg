@@ -53,7 +53,13 @@ internal class Character : ICharacter
 
     public bool IsAlive => mrCurrentHealthPoints > 0;
 
-    public IContext Context { get => mrContext; set => mrContext = value; }
+    public IContext Context { 
+        get => mrContext; 
+        set { 
+            mrContext = value;
+            mrPersonality.Context = value;
+        }
+    }
 
     public string Summary => $"{Name}, the {Personality} {Class}";
 
@@ -95,11 +101,9 @@ internal class Character : ICharacter
         return fAdjustedValue;
     }
 
-    public IAction ChooseAction() => Personality.ChooseAction(ActionSet);
-
-    public ActionContext Execute(IAction aAction)
+    public ActionContext DoAnyAction()
     {
-        return aAction.Execute(Context);
+        return mrPersonality.DoAnyAction(mrActionSet);
     }
 
     public void ResetForRound()

@@ -10,11 +10,15 @@ internal class Poke : IAction
 
     public ActionType Type => ActionType.Basic;
 
-    public ActionContext Execute(IContext aContext)
+    public ActionContext Execute(IContext aContext, ITargetable aTarget)
     {
-        ICharacter fTarget = aContext.Enemies.Where(a => a.IsAlive).OrderByDescending(a => a.HealthPoints).Last();
-        int fAdjusted = fTarget.ApplyDamage(1);
+        int fAdjusted = aTarget.ApplyDamage(1);
 
-        return new ActionContext(aContext, this, fTarget, fAdjusted);
+        return new ActionContext(aContext, this, aTarget, fAdjusted);
+    }
+
+    public IEnumerable<ITargetable> ValidTargets(IContext aContext)
+    {
+        return aContext.Enemies.Where(a => a.IsAlive).OrderBy(a => a.HealthPoints);
     }
 }

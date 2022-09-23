@@ -10,10 +10,15 @@ internal class Block : IAction
 
     public ActionType Type => ActionType.Defend;
 
-    public ActionContext Execute(IContext aContext)
+    public ActionContext Execute(IContext aContext, ITargetable aTarget)
     {
-        int fAdjustedValue = aContext.Self.ApplyDefense(1);
+        int fAdjustedValue = aTarget.ApplyDefense(1);
 
-        return new ActionContext(aContext, this, aContext.Self, fAdjustedValue);
+        return new ActionContext(aContext, this, aTarget, fAdjustedValue);
+    }
+
+    public IEnumerable<ITargetable> ValidTargets(IContext aContext)
+    {
+        return new List<ITargetable> { aContext.Self };
     }
 }

@@ -10,11 +10,15 @@ internal class Whack : IAction
 
     public ActionType Type => ActionType.Basic;
 
-    public ActionContext Execute(IContext aContext)
+    public ActionContext Execute(IContext aContext, ITargetable aTarget)
     {
-        ICharacter fTarget = RandomNumberGod.ChooseCharacter(aContext.Enemies.Where(a => a.IsAlive));
-        int fAdjustedValue = fTarget.ApplyDamage(1);
+        int fAdjustedValue = aTarget.ApplyDamage(1);
 
-        return new ActionContext(aContext, this, fTarget, fAdjustedValue);
+        return new ActionContext(aContext, this, aTarget, fAdjustedValue);
+    }
+
+    public IEnumerable<ITargetable> ValidTargets(IContext aContext)
+    {
+        return aContext.Enemies.Where(a => a.IsAlive);
     }
 }

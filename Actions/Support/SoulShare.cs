@@ -10,15 +10,19 @@ internal class SoulShare : IAction
 
     public ActionType Type => ActionType.Support;
 
-    public ActionContext Execute(IContext aContext)
+    public ActionContext Execute(IContext aContext, ITargetable aTarget)
     {
         IEnumerable<ICharacter> fSortedByHealth = aContext.Allies.Where(a => a.IsAlive).OrderByDescending(a => a.HealthPoints);
         ICharacter fSource = fSortedByHealth.First();
-        ICharacter fDestination = fSortedByHealth.Last();
 
-        int fAdjustedValue = 2 * fDestination.ApplyHeal(1);
+        int fAdjustedValue = 2 * aTarget.ApplyHeal(1);
         fSource.ApplyDamage(fAdjustedValue);
 
-        return new ActionContext(aContext, this, fDestination, fAdjustedValue);
+        return new ActionContext(aContext, this, aTarget, fAdjustedValue);
+    }
+
+    public IEnumerable<ITargetable> ValidTargets(IContext aContext)
+    {
+        return aContext.Allies.Where(a => a.IsAlive).OrderBy(a => a.HealthPoints);
     }
 }

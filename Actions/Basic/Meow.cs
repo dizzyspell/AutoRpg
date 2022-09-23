@@ -10,11 +10,15 @@ internal class Meow : IAction
 
     public ActionType Type => ActionType.Basic;
 
-    public ActionContext Execute(IContext aContext)
+    public ActionContext Execute(IContext aContext, ITargetable aTarget)
     {
-        ITargetable fTarget = aContext.Enemies.Where(a => a.IsAlive).OrderByDescending(a => a.DefensePoints).First();
-        int fDefenseRemoved = -fTarget.ApplyDefense(-1);
+        int fDefenseRemoved = -aTarget.ApplyDefense(-1);
 
-        return new ActionContext(aContext, this, fTarget, fDefenseRemoved);
+        return new ActionContext(aContext, this, aTarget, fDefenseRemoved);
+    }
+
+    public IEnumerable<ITargetable> ValidTargets(IContext aContext)
+    {
+        return aContext.Enemies.Where(a => a.IsAlive).OrderByDescending(a => a.DefensePoints);
     }
 }

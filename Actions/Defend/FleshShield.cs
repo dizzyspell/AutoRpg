@@ -10,16 +10,19 @@ internal class FleshShield : IAction
 
     public ActionType Type => ActionType.Defend;
 
-    public ActionContext Execute(IContext aContext)
+    public ActionContext Execute(IContext aContext, ITargetable aTarget)
     {
         IEnumerable<ICharacter> fSortedByHealth = aContext.Allies.Where(a => a.IsAlive).OrderByDescending(a => a.HealthPoints);
         ICharacter fSource = fSortedByHealth.First();
-        ICharacter fDestination = fSortedByHealth.Last();
-
 
         int fAdjustedValue = 2 * ((fSource.HealthPoints == 1) ? 0 : fSource.ApplyDamage(1));
-        fDestination.ApplyDefense(fAdjustedValue);
+        aTarget.ApplyDefense(fAdjustedValue);
 
-        return new ActionContext(aContext, this, fDestination, fAdjustedValue);
+        return new ActionContext(aContext, this, aTarget, fAdjustedValue);
+    }
+
+    public IEnumerable<ITargetable> ValidTargets(IContext aContext)
+    {
+        return aContext.Allies.Where(a => a.IsAlive).OrderBy(a => a.HealthPoints);
     }
 }

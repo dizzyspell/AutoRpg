@@ -10,5 +10,7 @@ internal interface IAction
 
     public ActionType Type { get; }
 
-    public ActionContext Execute(IContext aContext);
+    public ActionContext Execute(IContext aContext, ITargetable aTarget);
+
+    public IEnumerable<ITargetable> ValidTargets(IContext aContext);
 }

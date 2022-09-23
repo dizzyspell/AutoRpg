@@ -10,11 +10,15 @@ internal class BigBonk : IAction
 
     public ActionType Type => ActionType.Attack;
 
-    public ActionContext Execute(IContext aContext)
+    public ActionContext Execute(IContext aContext, ITargetable aTarget)
     {
-        ICharacter fTarget = RandomNumberGod.ChooseCharacter(aContext.Enemies.Where( a => a.IsAlive ));
-        int fAdjustedDamage = fTarget.ApplyDamage(2);
+        int fAdjustedDamage = aTarget.ApplyDamage(2);
 
-        return new ActionContext(aContext, this, fTarget, fAdjustedDamage);
+        return new ActionContext(aContext, this, aTarget, fAdjustedDamage);
+    }
+
+    public IEnumerable<ITargetable> ValidTargets(IContext aContext)
+    {
+        return aContext.Enemies.Where(a => a.IsAlive).Cast<ITargetable>();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using ConsoleApp1.Actions;
+using ConsoleApp1.Contexts;
 
 namespace ConsoleApp1.Personalities;
 
@@ -23,7 +24,9 @@ internal abstract class Personality : IPersonality
 
     public string Name => mrName;
 
-    public IAction ChooseAction(ActionSet aActionSet)
+    public IContext Context { get; set; }
+
+    protected IAction ChooseAction(ActionSet aActionSet)
     {
         List<Tuple<IAction, int>> fChanceSet = new List<Tuple<IAction, int>>
         {
@@ -49,6 +52,26 @@ internal abstract class Personality : IPersonality
         }
 
         return fChosenAction;
+    }
+
+    protected ITargetable? ChooseTarget(IAction aAction)
+    {
+        IEnumerable<ITargetable> fValidTargets = aAction.ValidTargets(Context);
+        return fValidTargets.FirstOrDefault();
+    }
+
+    public ActionContext DoAnyAction(ActionSet aActionSet)
+    {
+        IAction fChosenAction;
+        ITargetable? fChosenTarget = null;
+
+        do
+        {
+            fChosenAction = ChooseAction(aActionSet);
+            fChosenTarget = ChooseTarget(fChosenAction);
+        } while (fChosenTarget == null);
+
+        return fChosenAction.Execute(Context, fChosenTarget);
     }
 
     public override string ToString()

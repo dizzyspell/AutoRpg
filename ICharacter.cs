@@ -17,7 +17,6 @@ internal interface ICharacter : ITargetable
     public string Summary { get; }
     public IContext Context { get; set; }
 
-    public IAction ChooseAction();
-    public ActionContext Execute(IAction aAction);
+    public ActionContext DoAnyAction();
     public void ResetForRound();
 }
