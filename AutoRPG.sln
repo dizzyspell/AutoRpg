@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32825.248
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoRPG.Core", "Lib\AutoRPG.Core\AutoRPG.Core.csproj", "{E38AD170-F853-4727-B568-EA420EDE47D1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apps", "Apps", "{2AFF6B23-DF48-4A0C-8B19-7ADB3AD70EF8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{4CEA9128-A3FA-447C-B72E-515BAF9A12FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoRPG.ConsoleApp", "Apps\AutoRPG.ConsoleApp\AutoRPG.ConsoleApp.csproj", "{BEBFFD9F-F382-4A5F-8B36-97F57A150B33}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E38AD170-F853-4727-B568-EA420EDE47D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E38AD170-F853-4727-B568-EA420EDE47D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E38AD170-F853-4727-B568-EA420EDE47D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E38AD170-F853-4727-B568-EA420EDE47D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEBFFD9F-F382-4A5F-8B36-97F57A150B33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEBFFD9F-F382-4A5F-8B36-97F57A150B33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEBFFD9F-F382-4A5F-8B36-97F57A150B33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEBFFD9F-F382-4A5F-8B36-97F57A150B33}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E38AD170-F853-4727-B568-EA420EDE47D1} = {4CEA9128-A3FA-447C-B72E-515BAF9A12FE}
+		{BEBFFD9F-F382-4A5F-8B36-97F57A150B33} = {2AFF6B23-DF48-4A0C-8B19-7ADB3AD70EF8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B3CAE234-A289-449D-BBDD-669A502E2946}
+	EndGlobalSection
+EndGlobal
