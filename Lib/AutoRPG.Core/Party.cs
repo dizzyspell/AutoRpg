@@ -2,6 +2,9 @@
 
 namespace AutoRPG.Core;
 
+/// <summary>
+/// A standardized group of allied characters. Also an <see cref="ITargetable"/>.
+/// </summary>
 public class Party : IEnumerable<ICharacter>, ITargetable
 {
     private readonly ICharacter[] mrCharacters = new ICharacter[4];
@@ -10,6 +13,14 @@ public class Party : IEnumerable<ICharacter>, ITargetable
     {
     }
 
+    /// <summary>
+    /// Generate a new party from the first four characters in a list. List should
+    /// have at least 4 characters or this will blow up. I promise I'll fix it 
+    /// eventually.... :3
+    /// </summary>
+    /// <param name="aCharacters">The list of characters to build the party around. Should
+    /// have at least 4 characters or this will blow up. I promise I'll fix it 
+    /// eventually.... :3</param>
     public Party(List<ICharacter> aCharacters)
     {
         for (int i = 0; i < 4; i++)
@@ -18,6 +29,10 @@ public class Party : IEnumerable<ICharacter>, ITargetable
         }
     }
 
+    /// <summary>
+    /// Generate a new party with four random characters
+    /// </summary>
+    /// <returns></returns>
     public static Party GenerateNew()
     {
         return new Party(
@@ -30,10 +45,21 @@ public class Party : IEnumerable<ICharacter>, ITargetable
         );
     }
 
+    /// <summary>
+    /// True if there is at least one character in the party who is still alive. 
+    /// False otherwise.
+    /// </summary>
     public bool StillKickin => mrCharacters.Any(a => a.IsAlive);
 
+    /// <summary>
+    /// How many characters are actually in the party, ignoring empty slots.
+    /// </summary>
     public int Count => mrCharacters.Where(a => a != null).Count();
 
+    /// <summary>
+    /// User-presentable summary of who's in the party, and any empty slots.
+    /// Mainly for the console app.
+    /// </summary>
     public string Summary
     {
         get
@@ -52,6 +78,10 @@ public class Party : IEnumerable<ICharacter>, ITargetable
         }
     }
 
+    /// <summary>
+    /// User-presentable table of each character in the party, with how much
+    /// HP and DP each character has.
+    /// </summary>
     public string Details
     {
         get
@@ -69,6 +99,11 @@ public class Party : IEnumerable<ICharacter>, ITargetable
         }
     }
 
+    /// <summary>
+    /// Put the given character in the specified slot in the party.
+    /// </summary>
+    /// <param name="aPos">0-indexed position in the party to place the character.</param>
+    /// <param name="aCharacter">The character to place in the slot.</param>
     public void SetPosition(int aPos, ICharacter aCharacter)
     {
         if (aPos < 4) mrCharacters[aPos] = aCharacter;

@@ -3,6 +3,10 @@ using AutoRPG.Core.Personalities;
 
 namespace AutoRPG.Core;
 
+/// <summary>
+/// A big list of stuff that can be randomly selected to make a new character. 
+/// this is weird and janky rn, it will be changing so dont pay too much attention...
+/// </summary>
 public static class Defaults
 {
     public const string ClassTestSubjectToken = "class_testsubject";

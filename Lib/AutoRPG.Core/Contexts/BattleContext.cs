@@ -1,9 +1,24 @@
 ﻿namespace AutoRPG.Core.Contexts;
 
+/// <summary>
+/// An <see cref="IContext"/> which represents a battle that an 
+/// <see cref="ICharacter"/> is in. This also contains stuff for managing a 
+/// battle, tho only one at a time! (Need to make this able to run multiple)
+/// </summary>
 public class BattleContext : IContext
 {
+    /// <summary>
+    /// The order in which turns will be executed. Also the list of all characters
+    /// involved in the battle.
+    /// </summary>
     private static readonly List<ICharacter> msrInitiativeOrder = new();
 
+    /// <summary>
+    /// Contruct a new BattleContext.
+    /// </summary>
+    /// <param name="aSelf"><see cref="IContext.Self"/></param>
+    /// <param name="aAllies"><see cref="IContext.Allies"/></param>
+    /// <param name="aEnemies"><see cref="IContext.Enemies"/></param>
     internal BattleContext(ICharacter aSelf, Party aAllies, Party aEnemies)
     {
         Self = aSelf;
@@ -11,6 +26,12 @@ public class BattleContext : IContext
         Enemies = aEnemies;
     }
 
+    /// <summary>
+    /// Set up a battle between two parties! This will create and apply 
+    /// BattleContexts to each member of each party, and set up turn order.
+    /// </summary>
+    /// <param name="aPartyA">The party which is going first in the battle</param>
+    /// <param name="aPartyB">The party whcih is going second in the battle</param>
     public static void SetUpForBattle(Party aPartyA, Party aPartyB)
     {
         msrInitiativeOrder.Clear();
@@ -31,7 +52,14 @@ public class BattleContext : IContext
         }
     }
 
-    public static void NextRound(Action<ActionContext> func)
+    /// <summary>
+    /// Calculate the next round of the battle.
+    /// </summary>
+    /// <param name="aTurnCallback">
+    /// A callback function which will be called after each character's turn in 
+    /// the battle. Use this for displaying/logging what happened during a turn.
+    /// </param>
+    public static void NextRound(Action<ActionContext> aTurnCallback)
     {
         foreach (ICharacter character in msrInitiativeOrder)
         {
@@ -45,7 +73,7 @@ public class BattleContext : IContext
 
             ActionContext fResult = fActiveCharacter.DoAnyAction();
 
-            func(fResult);
+            aTurnCallback(fResult);
         }
     }
 

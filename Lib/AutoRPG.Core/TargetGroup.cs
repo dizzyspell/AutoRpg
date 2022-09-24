@@ -2,10 +2,18 @@
 
 namespace AutoRPG.Core;
 
+/// <summary>
+/// An <see cref="ITargetable"/> which represents multiple 
+/// <see cref="ITargetable"/>! Confusing!
+/// </summary>
 public class TargetGroup : IEnumerable<ITargetable>, ITargetable
 {
     private readonly List<ITargetable> mrTargets;
 
+    /// <summary>
+    /// Create a new TargetGroup from a list of targets.
+    /// </summary>
+    /// <param name="aTargets"></param>
     public TargetGroup(List<ITargetable> aTargets)
     {
         mrTargets = aTargets;

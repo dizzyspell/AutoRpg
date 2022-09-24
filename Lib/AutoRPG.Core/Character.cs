@@ -5,6 +5,9 @@ using AutoRPG.Core.Personalities;
 
 namespace AutoRPG.Core;
 
+/// <summary>
+/// The main implementation of <see cref="ICharacter"/>.
+/// </summary>
 public class Character : ICharacter
 {
     private readonly Guid mrId;
@@ -18,7 +21,7 @@ public class Character : ICharacter
     private int mrDefensePoints;
     private IContext mrContext;
 
-    public Character(string aName, IClass aClass, IPersonality aPersonality)
+    internal Character(string aName, IClass aClass, IPersonality aPersonality)
     {
         mrId = Guid.NewGuid();
         mrName = aName;
@@ -28,6 +31,13 @@ public class Character : ICharacter
         mrMaxHealthPoints = 3;
         mrCurrentHealthPoints = mrMaxHealthPoints;
     }
+
+    /// <summary>
+    /// Randomly generates a new character! Optionally, with a specified name or 
+    /// a random one.
+    /// </summary>
+    /// <param name="aName">Optional name to give the generated character. Leave empty for a random one.</param>
+    /// <returns>A new character!</returns>
     public static ICharacter GenerateNew(string? aName = null)
     {
         string fName = aName ?? RandomNumberGod.ChooseName();
