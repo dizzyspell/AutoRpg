@@ -32,8 +32,5 @@ public class ActionSet
 
     public IAction Attack => mrAttack;
 
-    public override string ToString()
-    {
-        return "\n> " + string.Join("\n> ", Basic.Name, Support.Name, Defend.Name, Attack.Name); ;
-    }
+    public string Summary => "\n> " + string.Join("\n> ", Basic.Name, Support.Name, Defend.Name, Attack.Name);
 }

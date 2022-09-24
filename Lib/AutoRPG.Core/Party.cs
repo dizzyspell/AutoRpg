@@ -52,26 +52,29 @@ public class Party : IEnumerable<ICharacter>, ITargetable
         }
     }
 
+    public string Details
+    {
+        get
+        {
+            string fToReturn = "";
+
+            foreach (var fMember in mrCharacters)
+            {
+                fToReturn += fMember == null ?
+                    "\t< EMPTY >\n" :
+                    $"\t{fMember.Name}:{(fMember.Name.Length >= 8 ? "\t" : "\t\t")}{fMember.HealthPoints} \t{fMember.DefensePoints}\n";
+            }
+
+            return fToReturn;
+        }
+    }
+
     public void SetPosition(int aPos, ICharacter aCharacter)
     {
         if (aPos < 4) mrCharacters[aPos] = aCharacter;
     }
 
     public string Name => throw new NotImplementedException();
-
-    public override string ToString()
-    {
-        string fToReturn = "";
-
-        foreach (var fMember in mrCharacters)
-        {
-            fToReturn += fMember == null ?
-                "\t< EMPTY >\n" :
-                $"\t{fMember.Name}:{(fMember.Name.Length >= 8 ? "\t" : "\t\t")}{fMember.HealthPoints} \t{fMember.DefensePoints}\n";
-        }
-
-        return fToReturn;
-    }
 
     public IEnumerator<ICharacter> GetEnumerator()
     {

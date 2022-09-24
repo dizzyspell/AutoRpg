@@ -138,7 +138,7 @@ internal static class ConsoleManager
                 aContext =>
                 {
                     Console.WriteLine($"\t!! {aContext.Self.Name} used {aContext.Executed.Name} on {aContext.Target.Name} !! \n");
-                    Console.WriteLine($"{aPartyA}\n{aPartyB}");
+                    Console.WriteLine($"{aPartyA.Details}\n{aPartyB.Details}");
                     if (aPauseForRound) Pause();
                 }
             );

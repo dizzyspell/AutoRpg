@@ -15,6 +15,7 @@ public interface ICharacter : ITargetable
     public int DefensePoints { get; }
     public bool IsAlive { get; }
     public string Summary { get; }
+    string Details { get; }
     public IContext Context { get; set; }
 
     public ActionContext DoAnyAction();

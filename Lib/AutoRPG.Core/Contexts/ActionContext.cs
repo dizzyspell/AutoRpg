@@ -26,9 +26,4 @@ public class ActionContext : IContext
     public ITargetable Target { get; }
 
     public int AdjustedValue { get; }
-
-    public override string ToString()
-    {
-        return $"{Self.Name} used {Executed.Name} on {Target.Name} for {AdjustedValue} points";
-    }
 }

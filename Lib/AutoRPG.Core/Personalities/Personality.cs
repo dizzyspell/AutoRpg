@@ -73,9 +73,4 @@ public abstract class Personality : IPersonality
 
         return fChosenAction.Execute(Context, fChosenTarget);
     }
-
-    public override string ToString()
-    {
-        return Name;
-    }
 }

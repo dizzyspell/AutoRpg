@@ -63,7 +63,9 @@ public class Character : ICharacter
         }
     }
 
-    public string Summary => $"{Name}, the {Personality} {Class}";
+    public string Summary => $"{Name}, the {Personality.Name} {Class.Name}";
+
+    public string Details => $"{Name}\n{Personality.Name} {Class.Name}\n{ActionSet.Summary}";
 
     public int SimulateDamage(int aBaseDamage)
     {
@@ -114,7 +116,7 @@ public class Character : ICharacter
 
     public override string ToString()
     {
-        return $"{Name}\n{Personality} {Class}\n{ActionSet}";
+        return $"{Name} ({Id})";
     }
 
     public override bool Equals(object? obj)
