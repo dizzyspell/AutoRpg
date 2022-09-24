@@ -1,6 +1,7 @@
-﻿using AutoRPG.Core.Contexts;
+﻿using AutoRPG.Core;
+using AutoRPG.Core.Contexts;
 
-namespace AutoRPG.Core;
+namespace AutoRPG.ConsoleApp;
 
 public static class Player
 {
