@@ -19,6 +19,7 @@ public class Poke : IAction
 
     public IEnumerable<ITargetable> ValidTargets(IContext aContext)
     {
-        return aContext.Enemies.Where(a => a.IsAlive).OrderBy(a => a.HealthPoints);
+        return aContext.Enemies.Where(a => a.IsAlive)
+            .OrderBy(a => a.HealthPoints);
     }
 }

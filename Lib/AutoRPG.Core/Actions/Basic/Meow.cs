@@ -6,7 +6,8 @@ public class Meow : IAction
 {
     public string Name => "Meow";
 
-    public string Description => "Charms an enemy into dropping their defenses :3";
+    public string Description =>
+        "Charms an enemy into dropping their defenses :3";
 
     public ActionType Type => ActionType.Basic;
 
@@ -19,6 +20,7 @@ public class Meow : IAction
 
     public IEnumerable<ITargetable> ValidTargets(IContext aContext)
     {
-        return aContext.Enemies.Where(a => a.IsAlive).OrderByDescending(a => a.DefensePoints);
+        return aContext.Enemies.Where(a => a.IsAlive)
+            .OrderByDescending(a => a.DefensePoints);
     }
 }

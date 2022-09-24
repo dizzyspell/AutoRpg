@@ -19,6 +19,6 @@ public class BigBonk : IAction
 
     public IEnumerable<ITargetable> ValidTargets(IContext aContext)
     {
-        return aContext.Enemies.Where(a => a.IsAlive).Cast<ITargetable>();
+        return aContext.Enemies.Where(a => a.IsAlive);
     }
 }

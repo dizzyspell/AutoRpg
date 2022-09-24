@@ -19,6 +19,11 @@ public class Purr : IAction
 
     public IEnumerable<ITargetable> ValidTargets(IContext aContext)
     {
-        return new List<ITargetable> { (TargetGroup)aContext.Allies.Where(a => a.IsAlive && !a.Equals(aContext.Self)).ToList() };
+        return new List<ITargetable>
+        {
+            (TargetGroup) aContext.Allies
+                .Where(a => a.IsAlive && !a.Equals(aContext.Self))
+                .ToList()
+        };
     }
 }

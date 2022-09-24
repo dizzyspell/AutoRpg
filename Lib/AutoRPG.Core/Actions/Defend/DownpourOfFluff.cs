@@ -6,7 +6,8 @@ public class DownpourOfFluff : IAction
 {
     public string Name => "Downpour of Fluff";
 
-    public string Description => "Sheds some protective fluff on all friends <3";
+    public string Description =>
+        "Sheds some protective fluff on all friends <3";
 
     public ActionType Type => ActionType.Defend;
 
@@ -19,6 +20,11 @@ public class DownpourOfFluff : IAction
 
     public IEnumerable<ITargetable> ValidTargets(IContext aContext)
     {
-        return new List<ITargetable> { (TargetGroup)aContext.Allies.Where(a => a.IsAlive && !a.Equals(aContext.Self)).ToList() };
+        return new List<ITargetable>
+        {
+            (TargetGroup) aContext.Allies
+                .Where(a => a.IsAlive && !a.Equals(aContext.Self))
+                .ToList()
+        };
     }
 }

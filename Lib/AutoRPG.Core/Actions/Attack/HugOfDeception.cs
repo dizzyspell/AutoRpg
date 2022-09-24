@@ -6,7 +6,8 @@ public class HugOfDeception : IAction
 {
     public string Name => "Hug of Deception";
 
-    public string Description => "A BIG hug... which turns an enemy's defense against them!";
+    public string Description =>
+        "A BIG hug... which turns an enemy's defense against them!";
 
     public ActionType Type => ActionType.Attack;
 
@@ -20,6 +21,7 @@ public class HugOfDeception : IAction
 
     public IEnumerable<ITargetable> ValidTargets(IContext aContext)
     {
-        return aContext.Enemies.Where(a => a.IsAlive).OrderByDescending(a => a.DefensePoints);
+        return aContext.Enemies.Where(a => a.IsAlive)
+            .OrderByDescending(a => a.DefensePoints);
     }
 }

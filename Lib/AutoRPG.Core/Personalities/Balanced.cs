@@ -2,5 +2,7 @@
 
 internal class Balanced : Personality, IPersonality
 {
-    internal Balanced() : base("Balanced", 5, 1, 2, 2) { }
+    internal Balanced() : base("Balanced", 5, 1, 2, 2)
+    {
+    }
 }

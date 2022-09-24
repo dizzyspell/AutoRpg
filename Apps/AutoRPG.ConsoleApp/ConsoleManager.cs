@@ -53,24 +53,27 @@ internal static class ConsoleManager
             Console.WriteLine("\nOk, here is your current reserve...\n");
 
             for (int i = 0; i < Player.Reserve.Count; i++)
-            {
-                Console.WriteLine($"({i}) {Player.Reserve.ElementAt(i).Summary}");
-            }
+                Console.WriteLine(
+                    $"({i}) {Player.Reserve.ElementAt(i).Summary}");
 
-            Console.WriteLine($"\nWhich character should be in slot {fChosenSlot} of your party? > \n");
+            Console.WriteLine(
+                $"\nWhich character should be in slot {fChosenSlot} of your party? > \n");
 
             int fChosenChar;
             fInput = Console.ReadLine();
 
-            while (!int.TryParse(fInput, out fChosenChar) || fChosenChar >= Player.Reserve.Count)
+            while (!int.TryParse(fInput, out fChosenChar) ||
+                   fChosenChar >= Player.Reserve.Count)
             {
                 Console.WriteLine("\nUh.... what ? Try again >\n");
                 fInput = Console.ReadLine();
                 Console.WriteLine("\n");
             }
 
-            if (Player.Party.ElementAt(fChosenSlot) != null) Player.Reserve.Add(Player.Party.ElementAt(fChosenSlot));
-            Player.Party.SetPosition(fChosenSlot, Player.Reserve.ElementAt(fChosenChar));
+            if (Player.Party.ElementAt(fChosenSlot) != null)
+                Player.Reserve.Add(Player.Party.ElementAt(fChosenSlot));
+            Player.Party.SetPosition(
+                fChosenSlot, Player.Reserve.ElementAt(fChosenChar));
             Player.Reserve.RemoveAt(fChosenChar);
         }
     }
@@ -78,9 +81,9 @@ internal static class ConsoleManager
     public static void StartGambling()
     {
         string fInput;
-        Party fPredictedWinner;
-        Party fWinningParty;
-        bool fWatchTheBattle;
+        Party  fPredictedWinner;
+        Party  fWinningParty;
+        bool   fWatchTheBattle;
 
         bool fContinue = true;
 
@@ -110,7 +113,8 @@ internal static class ConsoleManager
             Player.Money -= 20;
             Console.WriteLine($"New total is {Player.Money} Monies \n");
 
-            fWatchTheBattle = YesNoPrompt("Would you like to watch the battle?");
+            fWatchTheBattle =
+                YesNoPrompt("Would you like to watch the battle?");
 
             fWinningParty = RunBattle(fPartyA, fPartyB, fWatchTheBattle);
 
@@ -129,20 +133,20 @@ internal static class ConsoleManager
         }
     }
 
-    public static Party RunBattle(Party aPartyA, Party aPartyB, bool aPauseForRound = true)
+    public static Party RunBattle(
+        Party aPartyA, Party aPartyB, bool aPauseForRound = true)
     {
         BattleContext.SetUpForBattle(aPartyA, aPartyB);
         while (aPartyA.StillKickin && aPartyB.StillKickin)
-        {
             BattleContext.NextRound(
                 aContext =>
                 {
-                    Console.WriteLine($"\t!! {aContext.Self.Name} used {aContext.Executed.Name} on {aContext.Target.Name} !! \n");
+                    Console.WriteLine(
+                        $"\t!! {aContext.Self.Name} used {aContext.Executed.Name} on {aContext.Target.Name} !! \n");
                     Console.WriteLine($"{aPartyA.Details}\n{aPartyB.Details}");
                     if (aPauseForRound) Pause();
                 }
             );
-        }
 
         return aPartyA.StillKickin ? aPartyA : aPartyB;
     }
@@ -160,13 +164,15 @@ internal static class ConsoleManager
         Console.WriteLine($"{aMessage} > (y/n) \n");
         fInput = Console.ReadLine();
 
-        while (!fInput.ToLower().Contains("y") && !fInput.ToLower().Contains("n"))
+        while (!fInput.ToLower().Contains('y') &&
+               !fInput.ToLower().Contains('n'))
         {
             Console.WriteLine("\nUh.... what ? Try again >\n");
             fInput = Console.ReadLine();
             Console.WriteLine("\n");
         }
 
-        return fInput.ToLower().Contains("y");
+        return fInput.ToLower()
+            .Contains('y');
     }
 }
