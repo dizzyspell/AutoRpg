@@ -66,10 +66,10 @@ public abstract class Personality : IPersonality
     {
         List<Tuple<IAction, int>> fChanceSet = new()
         {
-            new(aActionSet.Basic, mrBasicChance),
-            new(aActionSet.Support, mrSupportChance),
-            new(aActionSet.Defend, mrDefendChance),
-            new(aActionSet.Attack, mrAttackChance)
+            new Tuple<IAction, int>(aActionSet.Basic,   mrBasicChance),
+            new Tuple<IAction, int>(aActionSet.Support, mrSupportChance),
+            new Tuple<IAction, int>(aActionSet.Defend,  mrDefendChance),
+            new Tuple<IAction, int>(aActionSet.Attack,  mrAttackChance)
         };
 
         int fRandInt = RandomNumberGod.ChooseInt(mrTotalChance);

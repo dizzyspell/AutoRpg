@@ -1,6 +1,7 @@
 ﻿using AutoRPG.Core.Actions;
 using AutoRPG.Core.Classes;
 using AutoRPG.Core.Contexts;
+using AutoRPG.Core.Extensions;
 using AutoRPG.Core.Personalities;
 
 namespace AutoRPG.Core;
@@ -58,13 +59,13 @@ public class Character : ICharacter
 
     public int SimulateDamage(int aBaseDamage)
     {
-        return Math.Clamp(aBaseDamage - DefensePoints, 0, HealthPoints);
+        return (aBaseDamage - DefensePoints).Clamp(0, HealthPoints);
     }
 
     public int ApplyDamage(int aBaseDamage)
     {
-        int fAdjustedDamage = Math.Clamp(
-            aBaseDamage - DefensePoints, 0, HealthPoints);
+        int fAdjustedDamage =
+            (aBaseDamage - DefensePoints).Clamp(0, HealthPoints);
         HealthPoints  -= fAdjustedDamage;
         DefensePoints =  Math.Max(DefensePoints - aBaseDamage, 0);
         return fAdjustedDamage;
@@ -85,14 +86,13 @@ public class Character : ICharacter
 
     public int SimulateDefense(int aBaseDefense)
     {
-        return Math.Clamp(
-            aBaseDefense, -DefensePoints, HealthPoints - DefensePoints);
+        return aBaseDefense.Clamp(-DefensePoints, HealthPoints - DefensePoints);
     }
 
     public int ApplyDefense(int aBaseDefense)
     {
-        int fAdjustedValue = Math.Clamp(
-            aBaseDefense, -DefensePoints, HealthPoints - DefensePoints);
+        int fAdjustedValue = aBaseDefense.Clamp(
+            -DefensePoints, HealthPoints - DefensePoints);
         DefensePoints += fAdjustedValue;
         return fAdjustedValue;
     }
