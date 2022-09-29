@@ -1,0 +1,16 @@
+{
+    "name": "AutoRPG.Unity.Scripts",
+    "rootNamespace": "",
+    "references": [
+        "GUID:09fc3225957269b40b8db4e18b3e646c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
