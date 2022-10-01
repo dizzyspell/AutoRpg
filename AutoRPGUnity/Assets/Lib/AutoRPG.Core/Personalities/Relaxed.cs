@@ -1,8 +1,9 @@
-﻿namespace AutoRPG.Core.Personalities;
-
-public class Relaxed : Personality, IPersonality
+﻿namespace AutoRPG.Core.Personalities
 {
-    internal Relaxed() : base("Relaxed", 7, 1, 1, 1)
+    public class Relaxed : Personality, IPersonality
     {
+        internal Relaxed() : base("Relaxed", 7, 1, 1, 1)
+        {
+        }
     }
 }

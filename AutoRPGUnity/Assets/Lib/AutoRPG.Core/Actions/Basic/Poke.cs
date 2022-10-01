@@ -1,25 +1,28 @@
-﻿using AutoRPG.Core.Contexts;
+﻿using System.Collections.Generic;
+using System.Linq;
+using AutoRPG.Core.Contexts;
 
-namespace AutoRPG.Core.Actions.Basic;
-
-public class Poke : IAction
+namespace AutoRPG.Core.Actions.Basic
 {
-    public string Name => "Poke";
-
-    public string Description => "Poke the weakest enemy";
-
-    public ActionType Type => ActionType.Basic;
-
-    public ActionContext Execute(IContext aContext, ITargetable aTarget)
+    public class Poke : IAction
     {
-        int fAdjusted = aTarget.ApplyDamage(1);
+        public string Name => "Poke";
 
-        return new ActionContext(aContext, this, aTarget, fAdjusted);
-    }
+        public string Description => "Poke the weakest enemy";
 
-    public IEnumerable<ITargetable> ValidTargets(IContext aContext)
-    {
-        return aContext.Enemies.Where(a => a.IsAlive)
-            .OrderBy(a => a.HealthPoints);
+        public ActionType Type => ActionType.Basic;
+
+        public ActionContext Execute(IContext aContext, ITargetable aTarget)
+        {
+            var fAdjusted = aTarget.ApplyDamage(1);
+
+            return new ActionContext(aContext, this, aTarget, fAdjusted);
+        }
+
+        public IEnumerable<ITargetable> ValidTargets(IContext aContext)
+        {
+            return aContext.Enemies.Where(a => a.IsAlive)
+                .OrderBy(a => a.HealthPoints);
+        }
     }
 }

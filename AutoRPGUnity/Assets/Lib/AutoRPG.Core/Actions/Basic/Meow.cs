@@ -1,26 +1,29 @@
-﻿using AutoRPG.Core.Contexts;
+﻿using System.Collections.Generic;
+using System.Linq;
+using AutoRPG.Core.Contexts;
 
-namespace AutoRPG.Core.Actions.Basic;
-
-public class Meow : IAction
+namespace AutoRPG.Core.Actions.Basic
 {
-    public string Name => "Meow";
-
-    public string Description =>
-        "Charms an enemy into dropping their defenses :3";
-
-    public ActionType Type => ActionType.Basic;
-
-    public ActionContext Execute(IContext aContext, ITargetable aTarget)
+    public class Meow : IAction
     {
-        int fDefenseRemoved = -aTarget.ApplyDefense(-1);
+        public string Name => "Meow";
 
-        return new ActionContext(aContext, this, aTarget, fDefenseRemoved);
-    }
+        public string Description =>
+            "Charms an enemy into dropping their defenses :3";
 
-    public IEnumerable<ITargetable> ValidTargets(IContext aContext)
-    {
-        return aContext.Enemies.Where(a => a.IsAlive)
-            .OrderByDescending(a => a.DefensePoints);
+        public ActionType Type => ActionType.Basic;
+
+        public ActionContext Execute(IContext aContext, ITargetable aTarget)
+        {
+            var fDefenseRemoved = -aTarget.ApplyDefense(-1);
+
+            return new ActionContext(aContext, this, aTarget, fDefenseRemoved);
+        }
+
+        public IEnumerable<ITargetable> ValidTargets(IContext aContext)
+        {
+            return aContext.Enemies.Where(a => a.IsAlive)
+                .OrderByDescending(a => a.DefensePoints);
+        }
     }
 }

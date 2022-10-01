@@ -2,7 +2,8 @@
     "name": "AutoRPG.Unity.Scripts",
     "rootNamespace": "",
     "references": [
-        "GUID:09fc3225957269b40b8db4e18b3e646c"
+        "GUID:09fc3225957269b40b8db4e18b3e646c",
+        "GUID:5fe3d6d593728c24e9e9e2e3dfcde1bc"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

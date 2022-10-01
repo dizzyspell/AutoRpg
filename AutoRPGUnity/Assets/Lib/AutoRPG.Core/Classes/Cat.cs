@@ -4,16 +4,17 @@ using AutoRPG.Core.Actions.Basic;
 using AutoRPG.Core.Actions.Defend;
 using AutoRPG.Core.Actions.Support;
 
-namespace AutoRPG.Core.Classes;
-
-public class Cat : Class, IClass
+namespace AutoRPG.Core.Classes
 {
-    public override string Name => "Cat";
+    public class Cat : Class, IClass
+    {
+        public override string Name => "Cat";
 
-    public ActionSet ActionSet => new(
-        new Meow(),
-        new Purr(),
-        new DownpourOfFluff(),
-        new HuntersGift()
-    );
+        public ActionSet ActionSet => new ActionSet(
+            new Meow(),
+            new Purr(),
+            new DownpourOfFluff(),
+            new HuntersGift()
+        );
+    }
 }

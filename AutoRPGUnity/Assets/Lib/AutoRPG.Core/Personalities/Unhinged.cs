@@ -1,8 +1,9 @@
-﻿namespace AutoRPG.Core.Personalities;
-
-public class Unhinged : Personality, IPersonality
+﻿namespace AutoRPG.Core.Personalities
 {
-    internal Unhinged() : base("Unhinged", 3, 1, 1, 1)
+    public class Unhinged : Personality, IPersonality
     {
+        internal Unhinged() : base("Unhinged", 3, 1, 1, 1)
+        {
+        }
     }
 }

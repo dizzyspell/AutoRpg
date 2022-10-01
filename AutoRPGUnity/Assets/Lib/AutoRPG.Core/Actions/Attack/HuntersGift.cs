@@ -1,29 +1,32 @@
-﻿using AutoRPG.Core.Contexts;
+﻿using System.Collections.Generic;
+using System.Linq;
+using AutoRPG.Core.Contexts;
 
-namespace AutoRPG.Core.Actions.Attack;
-
-public class HuntersGift : IAction
+namespace AutoRPG.Core.Actions.Attack
 {
-    public string Name => "Hunter's Gift";
-
-    public string Description =>
-        "Steal a mouse from an enemy and bring it to a friend!";
-
-    public ActionType Type => ActionType.Attack;
-
-    public ActionContext Execute(IContext aContext, ITargetable aTarget)
+    public class HuntersGift : IAction
     {
-        int fDamageDone = aTarget.ApplyDamage(1);
-        ITargetable fDestination = aContext.Allies.Where(a => a.IsAlive)
-            .OrderByDescending(a => a.HealthPoints)
-            .Last();
-        fDestination.ApplyHeal(fDamageDone);
+        public string Name => "Hunter's Gift";
 
-        return new ActionContext(aContext, this, aTarget, fDamageDone);
-    }
+        public string Description =>
+            "Steal a mouse from an enemy and bring it to a friend!";
 
-    public IEnumerable<ITargetable> ValidTargets(IContext aContext)
-    {
-        return aContext.Enemies.Where(a => a.IsAlive);
+        public ActionType Type => ActionType.Attack;
+
+        public ActionContext Execute(IContext aContext, ITargetable aTarget)
+        {
+            var fDamageDone = aTarget.ApplyDamage(1);
+            ITargetable fDestination = aContext.Allies.Where(a => a.IsAlive)
+                .OrderByDescending(a => a.HealthPoints)
+                .Last();
+            fDestination.ApplyHeal(fDamageDone);
+
+            return new ActionContext(aContext, this, aTarget, fDamageDone);
+        }
+
+        public IEnumerable<ITargetable> ValidTargets(IContext aContext)
+        {
+            return aContext.Enemies.Where(a => a.IsAlive);
+        }
     }
 }

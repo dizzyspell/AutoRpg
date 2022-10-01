@@ -1,8 +1,9 @@
-﻿namespace AutoRPG.Core.Personalities;
-
-public class Shy : Personality, IPersonality
+﻿namespace AutoRPG.Core.Personalities
 {
-    internal Shy() : base("Shy", 5, 2, 2, 1)
+    public class Shy : Personality, IPersonality
     {
+        internal Shy() : base("Shy", 5, 2, 2, 1)
+        {
+        }
     }
 }

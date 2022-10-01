@@ -1,33 +1,36 @@
-﻿using AutoRPG.Core.Contexts;
+﻿using System.Collections.Generic;
+using System.Linq;
+using AutoRPG.Core.Contexts;
 
-namespace AutoRPG.Core.Actions.Defend;
-
-public class FleshShield : IAction
+namespace AutoRPG.Core.Actions.Defend
 {
-    public string Name => "Flesh Shield";
-
-    public string Description =>
-        "Steal some skin from the strongest friend and use it for defense!!";
-
-    public ActionType Type => ActionType.Defend;
-
-    public ActionContext Execute(IContext aContext, ITargetable aTarget)
+    public class FleshShield : IAction
     {
-        IEnumerable<ICharacter> fSortedByHealth = aContext.Allies
-            .Where(a => a.IsAlive)
-            .OrderByDescending(a => a.HealthPoints);
-        ICharacter fSource = fSortedByHealth.First();
+        public string Name => "Flesh Shield";
 
-        int fAdjustedValue =
-            2 * (fSource.HealthPoints == 1 ? 0 : fSource.ApplyDamage(1));
-        aTarget.ApplyDefense(fAdjustedValue);
+        public string Description =>
+            "Steal some skin from the strongest friend and use it for defense!!";
 
-        return new ActionContext(aContext, this, aTarget, fAdjustedValue);
-    }
+        public ActionType Type => ActionType.Defend;
 
-    public IEnumerable<ITargetable> ValidTargets(IContext aContext)
-    {
-        return aContext.Allies.Where(a => a.IsAlive)
-            .OrderBy(a => a.HealthPoints);
+        public ActionContext Execute(IContext aContext, ITargetable aTarget)
+        {
+            IEnumerable<ICharacter> fSortedByHealth = aContext.Allies
+                .Where(a => a.IsAlive)
+                .OrderByDescending(a => a.HealthPoints);
+            var fSource = fSortedByHealth.First();
+
+            var fAdjustedValue =
+                2 * (fSource.HealthPoints == 1 ? 0 : fSource.ApplyDamage(1));
+            aTarget.ApplyDefense(fAdjustedValue);
+
+            return new ActionContext(aContext, this, aTarget, fAdjustedValue);
+        }
+
+        public IEnumerable<ITargetable> ValidTargets(IContext aContext)
+        {
+            return aContext.Allies.Where(a => a.IsAlive)
+                .OrderBy(a => a.HealthPoints);
+        }
     }
 }

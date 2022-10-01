@@ -1,24 +1,26 @@
-﻿using AutoRPG.Core.Contexts;
+﻿using System.Collections.Generic;
+using AutoRPG.Core.Contexts;
 
-namespace AutoRPG.Core.Actions.Support;
-
-public class Heal : IAction
+namespace AutoRPG.Core.Actions.Support
 {
-    public string Name => "Heal";
-
-    public string Description => "Heals some damage";
-
-    public ActionType Type => ActionType.Support;
-
-    public ActionContext Execute(IContext aContext, ITargetable aTarget)
+    public class Heal : IAction
     {
-        int fAdjustedValue = aTarget.ApplyHeal(2);
+        public string Name => "Heal";
 
-        return new ActionContext(aContext, this, aTarget, fAdjustedValue);
-    }
+        public string Description => "Heals some damage";
 
-    public IEnumerable<ITargetable> ValidTargets(IContext aContext)
-    {
-        return new List<ITargetable> { aContext.Self };
+        public ActionType Type => ActionType.Support;
+
+        public ActionContext Execute(IContext aContext, ITargetable aTarget)
+        {
+            var fAdjustedValue = aTarget.ApplyHeal(2);
+
+            return new ActionContext(aContext, this, aTarget, fAdjustedValue);
+        }
+
+        public IEnumerable<ITargetable> ValidTargets(IContext aContext)
+        {
+            return new List<ITargetable> { aContext.Self };
+        }
     }
 }

@@ -1,8 +1,9 @@
-﻿namespace AutoRPG.Core.Personalities;
-
-public class Kind : Personality, IPersonality
+﻿namespace AutoRPG.Core.Personalities
 {
-    internal Kind() : base("Kind", 5, 3, 1, 1)
+    public class Kind : Personality, IPersonality
     {
+        internal Kind() : base("Kind", 5, 3, 1, 1)
+        {
+        }
     }
 }

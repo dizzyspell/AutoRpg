@@ -1,11 +1,14 @@
-namespace AutoRPG.Core.Extensions;
+using System;
 
-public static class MathExtensions
+namespace AutoRPG.Core.Extensions
 {
-    public static T Clamp<T>(this T val, T min, T max) where T : IComparable<T>
+    public static class MathExtensions
     {
-        if (val.CompareTo(min) < 0) return min;
-        if (val.CompareTo(max) > 0) return max;
-        return val;
+        public static T Clamp<T>(this T val, T min, T max) where T : IComparable<T>
+        {
+            if (val.CompareTo(min) < 0) return min;
+            if (val.CompareTo(max) > 0) return max;
+            return val;
+        }
     }
 }

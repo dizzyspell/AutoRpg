@@ -1,8 +1,9 @@
-﻿namespace AutoRPG.Core.Personalities;
-
-public class Angry : Personality, IPersonality
+﻿namespace AutoRPG.Core.Personalities
 {
-    internal Angry() : base("Angry", 5, 1, 1, 3)
+    public class Angry : Personality, IPersonality
     {
+        internal Angry() : base("Angry", 5, 1, 1, 3)
+        {
+        }
     }
 }

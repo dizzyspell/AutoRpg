@@ -1,32 +1,35 @@
-﻿using AutoRPG.Core.Contexts;
+﻿using System.Collections.Generic;
+using System.Linq;
+using AutoRPG.Core.Contexts;
 
-namespace AutoRPG.Core.Actions.Support;
-
-public class SoulShare : IAction
+namespace AutoRPG.Core.Actions.Support
 {
-    public string Name => "Soul Share";
-
-    public string Description =>
-        "Steal health from the strongest friend to heal the weakest!";
-
-    public ActionType Type => ActionType.Support;
-
-    public ActionContext Execute(IContext aContext, ITargetable aTarget)
+    public class SoulShare : IAction
     {
-        IEnumerable<ICharacter> fSortedByHealth = aContext.Allies
-            .Where(a => a.IsAlive)
-            .OrderByDescending(a => a.HealthPoints);
-        ICharacter fSource = fSortedByHealth.First();
+        public string Name => "Soul Share";
 
-        int fAdjustedValue = 2 * aTarget.ApplyHeal(1);
-        fSource.ApplyDamage(fAdjustedValue);
+        public string Description =>
+            "Steal health from the strongest friend to heal the weakest!";
 
-        return new ActionContext(aContext, this, aTarget, fAdjustedValue);
-    }
+        public ActionType Type => ActionType.Support;
 
-    public IEnumerable<ITargetable> ValidTargets(IContext aContext)
-    {
-        return aContext.Allies.Where(a => a.IsAlive)
-            .OrderBy(a => a.HealthPoints);
+        public ActionContext Execute(IContext aContext, ITargetable aTarget)
+        {
+            IEnumerable<ICharacter> fSortedByHealth = aContext.Allies
+                .Where(a => a.IsAlive)
+                .OrderByDescending(a => a.HealthPoints);
+            var fSource = fSortedByHealth.First();
+
+            var fAdjustedValue = 2 * aTarget.ApplyHeal(1);
+            fSource.ApplyDamage(fAdjustedValue);
+
+            return new ActionContext(aContext, this, aTarget, fAdjustedValue);
+        }
+
+        public IEnumerable<ITargetable> ValidTargets(IContext aContext)
+        {
+            return aContext.Allies.Where(a => a.IsAlive)
+                .OrderBy(a => a.HealthPoints);
+        }
     }
 }
